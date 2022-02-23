@@ -1,0 +1,7 @@
+---
+- hosts: c8
+  user: root
+  roles:
+   - dbsrvs
+   - php
+   - websrvs

@@ -1,0 +1,26 @@
+- name: update config file
+  template: src=nginx.conf.j2 dest=/usr/local/nginx/conf/nginx.conf
+  notify: restart nginx
+
+- name: create vhost directory
+  file: path=/usr/local/nginx/conf/vhost state=directory
+- name: create wwwroot
+  file: path=/data/wwwroot/ state=directory
+
+- name: copy index.html
+  template: src=index.html.j2 dest=/data/wwwroot/index.html
+
+- name: update vhost config file
+  template: src=vhost.conf.j2 dest=/usr/local/nginx/conf/vhost/vhost.conf
+
+- name: update on/off config file
+  template: src=nginx.j2 dest=/etc/init.d/nginx mode=755
+
+- name: chown /usr/local/nginx
+  shell: chown -R www:www /usr/local/nginx
+
+- name: start nginx
+  shell: /etc/init.d/nginx start
+
+- name: add nginx to chkconfig
+  shell: chkconfig --add nginx

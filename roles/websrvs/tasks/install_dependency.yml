@@ -1,0 +1,17 @@
+- name: install dependency
+  yum: name={{ item }} state=present
+  with_items:
+    - zlib-devel
+    - pcre-devel
+    - openssl-devel
+    - gcc-c++
+  when: ansible_os_family == "RedHat"
+
+- name: install dependency package for ubuntu
+  apt: name={{ item }} state=present
+  with_items:
+    - pcre-devel
+    - openssl-devel
+    - zlib-devel
+    - gcc-c++
+  when: ansible_os_family == "Ubuntu"

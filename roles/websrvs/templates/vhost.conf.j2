@@ -1,0 +1,90 @@
+server {        
+        listen 80 ; 
+       #listen 443 ssl;
+        server_name www.a.com;
+       #ssl_certificate /data/wwwroot/keys/xxx.crt;
+       #ssl_certificate_key /data/wwwroot/keys/xxx.key;
+	rewrite_log on;
+	error_log logs/xxx_error.log notice;
+        access_log logs/xxx_access.log;
+        index index.htm index.html index.php;
+        sendfile on;
+        gzip on;
+        gzip_types  text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png image/x-icon; #压缩文件类型,缺啥补啥
+        include mime.types;
+        default_type application/octet-stream;        
+	client_max_body_size 200M;
+	
+#跨域配置
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS,PUT,DELETE';
+        add_header Access-Control-Allow-Headers 'x-api-key,DNT,Keep-Alive,User-Agent,Cache-Control,Content-Type,Authorization';
+        if ($request_method = 'OPTIONS') {
+            return 204;
+        }
+
+#https强制跳转
+#	if ($scheme = http ) {
+#            return 301 https://$host$request_uri;
+#        }
+
+
+
+#主目录
+        root /data/wwwroot/;
+        location / {
+	    #判断是否为手机端,是的话跳手机端域名
+	    if ($http_user_agent ~* "(mobile|nokia|iphone|ipad|android|samsung|htc|blackberry)") {
+                rewrite  ^/(.*)$  https://www.a.com/m/ redirect;
+	     }	    
+    
+            #html
+            try_files $uri /index.html /index.htm =404;
+           
+             #laravel 框架
+	    #try_files $uri $uri/ /index.php?$query_string;
+		
+            ##访问路径的文件不存在则重写URL转交给ThinkPHP处理 
+	    #if (!-e $request_filename){
+            #    rewrite  ^(.*)$  /index.php?s=/$1  last;
+            # }
+         }
+
+#前端
+        location /admin/ {
+           alias /data/wwwroot/a.com/dist/;
+           try_files $uri /index.html /index.htm =404;
+        }
+#代理
+        location ^~ /api/api/b/ {
+            proxy_set_header Host $host; #防止nginx修改请求头的host为代理host
+            proxy_pass http://localhost/;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            #proxy_set_header X-Forwarded-Port $http_port;
+         }
+
+#解析php
+        location ~ \.php$ {
+            fastcgi_pass unix:/tmp/php-fcgi.sock;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+	}
+
+#解析php ThinkPHP项目的办法	
+     #   location ~ \.php(/|$) {
+     #       fastcgi_pass   unix:/tmp/php-fcgi.sock;
+     #       fastcgi_index  index.php;
+     #       include     fastcgi.conf;
+     #      
+     #       set $fastcgi_script_name2 $fastcgi_script_name;
+     #       if ($fastcgi_script_name ~ "^(.+\.php)(/.+)$") {
+     #           set $fastcgi_script_name2 $1;
+     #           set $path_info $2;
+     #       }
+     #       fastcgi_param   PATH_INFO $path_info;
+     #       fastcgi_param   SCRIPT_FILENAME   $document_root$fastcgi_script_name2;
+     #       fastcgi_param   SCRIPT_NAME   $fastcgi_script_name2;
+     #    }
+}

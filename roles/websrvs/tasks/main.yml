@@ -1,0 +1,7 @@
+---
+- include: group.yml
+- include: install_dependency.yml
+- include: user.yml
+- include: unarchive.yml
+- include: install.yml
+- include: config_file.yml

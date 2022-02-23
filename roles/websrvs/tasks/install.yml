@@ -1,0 +1,10 @@
+- name: install nginx
+  shell: chdir=/usr/local/src/nginx-1.19.2 ./configure --prefix=/usr/local/nginx --with-http_ssl_module;make && make install
+
+- name: Execution environment variable
+  lineinfile:
+    path: /etc/profile
+    line: export PATH=/usr/local/nginx/sbin/:$PATH
+
+- name: sourece profile
+  shell: source /etc/profile

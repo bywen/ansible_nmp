@@ -1,0 +1,2 @@
+- name: create user www
+  user: name=www system=yes shell=/sbin/nologin group=www

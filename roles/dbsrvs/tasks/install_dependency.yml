@@ -1,0 +1,14 @@
+- name: install dependency
+  yum: name={{ item }} state=present
+  with_items:
+    - libaio-devel
+    - numactl
+
+  when: ansible_os_family == "RedHat"
+
+- name: install dependency package for ubuntu
+  apt: name={{ item }} state=present
+  with_items:
+    - libaio-devel
+    - numactl
+  when: ansible_os_family == "Ubuntu"

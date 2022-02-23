@@ -1,0 +1,28 @@
+- name: install dependency
+  yum: name={{ item }} state=present
+  with_items:
+    - autoconf
+    - bzip2
+    - libjpeg-devel
+    - gcc
+    - libpng-devel
+    - openssl-devel
+    - freetype-devel
+    - libxml2-devel
+    - curl-devel
+    - libmcrypt-devel
+    - bzip2-devel
+    - libtomcrypt-devel
+    - sqlite-devel
+    - oniguruma-devel
+
+  when: ansible_os_family == "RedHat"
+
+- name: install dependency package for ubuntu
+  apt: name={{ item }} state=present
+  with_items:
+    - pcre-devel
+    - openssl-devel
+    - zlib-devel
+    - gcc-c++
+  when: ansible_os_family == "Ubuntu"

@@ -1,0 +1,26 @@
+- name: change directory
+  command: mv /usr/local/src/mysql-5.7.25-linux-glibc2.12-x86_64 /usr/local/mysql
+
+- name: initid mysql-server
+  shell: /usr/local/mysql/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql > /tmp/mysql_password.txt 2>&1
+
+- name: copy start file
+  copy: src=/usr/local/mysql/support-files/mysql.server dest=/etc/init.d/mysqld mode=755
+
+- name: start mysql
+  command: /etc/init.d/mysqld start
+
+- name: Execution environment variable
+  lineinfile:
+    path: /etc/profile
+    line: export PATH=/usr/local/mysql/bin/:$PATH
+
+- name: Get Intial Password
+  shell: awk '/password/ {print $11}' /tmp/mysql_password.txt
+  register: password
+
+- name: Change Password
+  shell: source /etc/profile && mysql -uroot -p"{{ password.stdout }}"  --connect-expired-password -e "SET PASSWORD = PASSWORD('123456');flush privileges;"
+
+- name: add mysqld to chkconfig
+  shell: chkconfig --add mysqld

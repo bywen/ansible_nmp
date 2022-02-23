@@ -1,0 +1,5 @@
+- name: unarchive swoole4.7 source code
+  unarchive: src=swoole-4.7.1.tgz dest=/usr/local/src/
+
+- name: unarchive php7.4 source code
+  unarchive: src=php-7.4.8.tar.bz2 dest=/usr/local/src/

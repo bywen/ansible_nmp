@@ -1,0 +1,5 @@
+- name: create group php-fpm
+  group: name=php-fpm state=present system=yes
+
+- name: create user php-fpm
+  user: name=php-fpm system=yes shell=/sbin/nologin group=php-fpm

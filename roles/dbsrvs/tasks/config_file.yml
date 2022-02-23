@@ -1,0 +1,4 @@
+- name: cp my.cnf
+  copy: src=my.cnf dest=/etc/my.cnf
+
+

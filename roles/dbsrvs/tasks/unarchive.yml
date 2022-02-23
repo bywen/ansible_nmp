@@ -1,0 +1,8 @@
+- name: unarchive Mysql
+  unarchive: src=mysql-5.7.25-linux-glibc2.12-x86_64.tar.gz dest=/usr/local/src
+
+- name: mkdir mysql datadir
+  file: path=/data/mysql owner=mysql group=mysql state=directory
+
+
+

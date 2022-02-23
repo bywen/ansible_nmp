@@ -1,0 +1,24 @@
+- name: install php-fpm
+  shell: chdir=/usr/local/src/php-7.4.8 ./configure --prefix=/usr/local/php-fpm --with-config-file-path=/usr/local/php-fpm/etc --enable-fpm --with-fpm-user=php-fpm --with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-pdo-mysql=mysqlnd --with-mysql-sock=/tmp/mysql.sock --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --with-pear --with-curl  --with-openssl --enable-mysqlnd --with-http_ssl_module;make && make install
+
+- name: copy php.ini
+  copy: src=/usr/local/src/php-7.4.8/php.ini-production dest=/usr/local/php-fpm/etc/php.ini
+
+- name: copy php-fpm on/off config file
+  copy: src=/usr/local/src/php-7.4.8/sapi/fpm/init.d.php-fpm dest=/etc/init.d/php-fpm mode=755
+
+- name: Execution environment variable
+  lineinfile:
+    path: /etc/profile
+    line: export PATH=/usr/local/php-fpm/sbin:$PATH
+
+- name: Execution environment variable
+  lineinfile:
+    path: /etc/profile
+    line: export PATH=/usr/local/php-fpm/bin:$PATH
+
+- name: sourece profile
+  shell: source /etc/profile
+
+- name: add php-fpm to chkconfig
+  shell: chkconfig --add php-fpm

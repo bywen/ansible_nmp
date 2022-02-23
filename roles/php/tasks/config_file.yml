@@ -1,0 +1,3 @@
+- name: update config file
+  template: src=php-fpm.conf.j2 dest=/usr/local/php-fpm/etc/php-fpm.conf
+  notify: restart php-fpm

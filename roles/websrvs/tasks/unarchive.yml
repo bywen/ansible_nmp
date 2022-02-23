@@ -1,0 +1,2 @@
+- name: unarchive nginx source code
+  unarchive: src=nginx-1.19.2.tar.gz dest=/usr/local/src/
