@@ -36,33 +36,33 @@ Linux yum更换国内源
 php 扩展手动安装：
  
 #安装libzip
-wget https://libzip.org/download/libzip-1.7.3.tar.gz
+	wget https://libzip.org/download/libzip-1.7.3.tar.gz
 #解压包
-tar -xvf libzip-1.7.3.tar.gz
-yum install -y cmake3
-mkdir build && cd build
-cmake3 ..
-make && make install
+	tar -xvf libzip-1.7.3.tar.gz
+	yum install -y cmake3
+	mkdir build && cd build
+	cmake3 ..
+	make && make install
 #记得查看安装的路径
 
 #修改文件加上地址
-vim /etc/ld.so.conf
-/usr/local/lib64
+	vim /etc/ld.so.conf
+	/usr/local/lib64
 
 #执行同步动态库
-ldconfig -v
+	ldconfig -v
 
 #下载zip包
 #解压
-tar zxvf zip-1.18.1
-cd zip-1.18.1
+	tar zxvf zip-1.18.1
+	cd zip-1.18.1
 #编译安装
-/usr/local/php-fpm/bin/phpize
-./configure --with-php-config=/usr/local/php-fpm/bin/php-config
-make && make install
+	/usr/local/php-fpm/bin/phpize
+	./configure --with-php-config=/usr/local/php-fpm/bin/php-config
+	make && make install
 
 #修改配置文件
-vim /usr/local/php-fpm/etc/php.ini
+	vim /usr/local/php-fpm/etc/php.ini
 
 #重启php
-/etc/init.d/php-fpm restart
+	/etc/init.d/php-fpm restart
