@@ -1,5 +1,17 @@
-- name: unarchive swoole4.7 source code
+- name: unarchive swoole4.7
   unarchive: src=swoole-4.7.1.tgz dest=/usr/local/src/
+
+- name: unarchive imagick 
+  unarchive: src=imagick-3.4.4.tgz dest=/usr/local/src/
+
+- name: unarchive redis-5.3
+  unarchive: src=redis-5.3.1.tgz dest=/usr/local/src/
+
+- name: unarchive libzip-1.7
+  unarchive: src=libzip-1.7.3.tar.gz dest=/usr/local/src/
+
+- name: unarchive zip-1.18
+  unarchive: src=zip-1.18.1.tgz dest=/usr/local/src/
 
 - name: unarchive php7.4 source code
   unarchive: src=php-7.4.8.tar.bz2 dest=/usr/local/src/

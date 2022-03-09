@@ -15,6 +15,8 @@
     - libtomcrypt-devel
     - sqlite-devel
     - oniguruma-devel
+    - ImageMagick-devel
+    - cmake3
 
   when: ansible_os_family == "RedHat"
 
