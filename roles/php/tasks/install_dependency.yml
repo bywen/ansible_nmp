@@ -17,6 +17,7 @@
     - oniguruma-devel
     - ImageMagick-devel
     - cmake3
+    - gcc-c++
 
   when: ansible_os_family == "RedHat"
 
