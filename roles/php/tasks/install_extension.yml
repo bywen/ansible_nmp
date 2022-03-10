@@ -19,14 +19,14 @@
 - name: install extension imagick-3.4.4
   shell: cd /usr/local/src/imagick-3.4.4 && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/imagick-3.4.4 ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
 
-#- name: install extension libzip
-#  shell: cd /usr/local/src/libzip-1.7.3 && mkdir build && cd /usr/local/src/libzip-1.7.3/build  &&  cmake3 .. && make && make install
+- name: install extension libzip
+  shell: cd /usr/local/src/libzip-1.7.3 && mkdir build && cd /usr/local/src/libzip-1.7.3/build  &&  cmake3 .. && make && make install
 
-#- name: cp config
-#  copy: src=ld.so.conf dest=/etc/ld.so.conf
+- name: cp config
+  copy: src=ld.so.conf dest=/etc/ld.so.conf
 
 - name: install extension zip
-  shell: cd /usr/local/src/zip-1.18.1 && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/zip-1.18.1 ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
+  shell: cd /usr/local/src/zip-1.18.1 && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/zip-1.18.1 ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install && ldconfig -v
 
 - name: copy extension phpconf
   copy: src=php.ini dest=/usr/local/php-fpm/etc/php.ini 
