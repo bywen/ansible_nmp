@@ -18,6 +18,8 @@
     - ImageMagick-devel
     - cmake3
     - gcc-c++
+    - automake
+    - libtool
 
   when: ansible_os_family == "RedHat"
 
