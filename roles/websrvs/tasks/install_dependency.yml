@@ -5,6 +5,7 @@
     - pcre-devel
     - openssl-devel
     - gcc-c++
+    - initscripts
   when: ansible_os_family == "RedHat"
 
 - name: install dependency package for ubuntu
