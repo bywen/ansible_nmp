@@ -1,18 +1,6 @@
 - name: initialize extension swoole
   shell: cd /usr/local/src/swoole-4.7.1 && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/swoole-4.7.1 ./configure --enable-openssl --enable-swoole-curl --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
 
-- name: install extension bcmath
-  shell: cd /usr/local/src/php-7.4.8/ext/bcmath && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/php-7.4.8/ext/bcmath ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
-
-- name: install extension gd
-  shell: cd /usr/local/src/php-7.4.8/ext/gd && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/php-7.4.8/ext/gd ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
-
-- name: install extension zlib
-  shell: cd /usr/local/src/php-7.4.8/ext/zlib && mv config0.m4 config.m4 && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/php-7.4.8/ext/zlib ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
-
-- name: install extension pcntl
-  shell: cd /usr/local/src/php-7.4.8/ext/pcntl && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/php-7.4.8/ext/pcntl ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
-
 - name: install extension redis-5.3.1
   shell: cd /usr/local/src/redis-5.3.1 && /usr/local/php-fpm/bin/phpize && chdir=/usr/local/src/redis-5.3.1 ./configure --with-php-config=/usr/local/php-fpm/bin/php-config && make && make install
 
